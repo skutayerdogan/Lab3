@@ -1,0 +1,123 @@
+#include <iostream>
+#include <new>
+#define MAX 100
+
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node *next;
+
+    Node(int x , Node *n){
+        data = x;
+        next = n;
+    }
+};
+
+class Stack{
+    private:int top;
+    public:
+    Node *h;
+    Node *t;
+    Node *p; //treversal
+
+    Stack(){
+        h = nullptr;
+        t = nullptr;
+        p = nullptr;
+        top = -1;
+    }
+    bool push(int x);
+    int pop();
+    int peek();
+    bool isEmpty();
+    int size();
+    int display();
+};
+
+bool Stack::push(int x) {
+    if (top >= (MAX -1)){
+        cout<<"Stack Overflow";
+        return false;
+    } else{
+        if (x != -1){
+            if (h == nullptr){
+                h = new Node(x, nullptr);
+                t=h;
+            } else{
+                t->next = new Node(x, nullptr);
+                t = t->next;
+            }
+        }
+    }
+}
+
+int Stack::pop() {
+    if (h == nullptr){
+        cout << "Stack Underflow";
+        return 0;
+    } else{
+        for (p = h ; p->next->next != nullptr ; p = p->next);
+        delete p->next;
+        p->next = nullptr;
+
+    }
+}
+
+int Stack ::peek() {
+    int x = 0 ;
+    if (h == nullptr ){
+        cout << "Stack is empty";
+        return 0;
+    } else{
+        cout<<"The top node is : "<< h->data<<endl;
+        return h->data;
+    }
+}
+bool Stack ::isEmpty() {
+    if (h == nullptr){
+        cout << "Stack is empty"<<endl;
+        return 0;
+    } else {
+        cout << "Stack is not empty"<< endl;
+        return 0;
+    }
+}
+int Stack ::display() {
+    for (t = h; t != nullptr ; t = t->next) {
+        cout<<t->data<<" ";
+    }
+    cout<<endl;
+}
+int Stack ::size() {
+    int x = 0;
+    for (t = h; t != nullptr ; t = t->next) {
+        x++;
+    }
+    cout<< "Size of the Linked list is "<< x<<endl;
+}
+
+
+
+int main() {
+    Stack s;
+
+     int input;
+
+    while (input != -1){
+        cout << "Enter a node value/Press -1 to exit ";
+        cin >> input;
+        s.push(input);
+    }
+    s.display();
+    s.isEmpty();
+    s.pop();
+    s.display();
+    s.peek();
+    s.size();
+    s.display();
+
+
+    return 0;
+}
